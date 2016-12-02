@@ -1,0 +1,70 @@
+#!/usr/bin/perl
+if (@ARGV > 3 || @ARGV < 2) {
+	die "Improper arguments, proper invocation is of form: ddiff [-ds12] <directory1> <directory2>\n"
+}
+elsif (@ARGV == 3) {
+	$switches = shift();
+	$dir1 = shift();
+	$dir2 = shift();
+}
+else {
+	$switches = "";
+	$dir1 = shift();
+	$dir2 = shift();
+}
+
+@files1 = `find $dir1`;
+chop @files1;
+@files2 = `find $dir2`;
+chop @files2;
+
+foreach (@files1) {
+	if (-f) {
+		$filepath = $_;
+		grep(s/(^.*\/).*$/$1/,$filepath);
+		grep(s/^.*\/(.*)$/$1/,$_);
+		$file = "$filepath";
+		$file .= $_;
+		$filename = $_;
+	}
+	else {
+		next;
+	}
+	if (@match = grep(/$filename/,@files2)) {
+		if (!(`/usr/bin/diff -q $file @match[0]`)) {
+			push @same, "> $_ <";
+		}
+		else {
+			push @different, "< $_ >";
+		}
+	}
+	else {
+		push @dir1only, "<<< $_";
+	}
+}
+
+foreach (@files2) {
+	if (-f) {
+		grep(s/^.*\/(.*)$/$1/,$_);
+		$filename = $_;
+		if (!(grep(/$filename/, @files1))) {
+			push @dir2only, ">>> $_";
+		}
+	}
+}
+
+if (@dir1only > 0 && (!($switches) || $switches =~ '1')) {
+	print join("\n",@dir1only),"\n";
+}
+
+if (@dir2only > 0 && (!($switches) || $switches =~ '2')) {
+	print join("\n",@dir2only),"\n";
+}
+
+if (@different > 0 && (!($switches) || $switches =~ 'd')) {
+	print join("\n",@different),"\n";
+}
+
+if (@same > 0 && (!($switches) || $switches =~ 's')) {
+	print join("\n",@same),"\n";
+}

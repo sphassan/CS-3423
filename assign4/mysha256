@@ -1,0 +1,29 @@
+#!/usr/bin/perl -w
+$shafile = "no";
+
+if (@ARGV == 2) {
+	$shafile = "yes";
+	open(OUTFILE,"> $ARGV[1]");
+}
+if (@ARGV > 2 || @ARGV < 1) {
+	die "Improper arguments, invocation is of form: mysha256 <rootfile> [sha256file]\n"
+}
+
+@dirs = <> or die "Cannot open rootfile\n";
+
+foreach (@dirs) {
+	@files = `find $_`;
+	chop @files;
+	foreach (@files) {
+		if (-f) {
+			$_ = `sha256sum $_`;
+			@out = split(/\s+/, $_);
+			if ($shafile eq "no") {
+				print "$out[1]\t$out[0]\n";
+			}
+			else {
+				print OUTFILE "$out[1]\t$out[0]\n";
+			}
+		}
+	}
+}

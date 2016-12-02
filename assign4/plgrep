@@ -1,0 +1,80 @@
+#!/usr/bin/perl -w
+if (@ARGV < 2) {
+	die "Improper arguments, invocation is of form: plgrep [-f] <perl regular expression> <file/directory list>\n"
+}
+
+$regex = shift @ARGV;
+$switch = "false";
+if ($regex eq "-f") {
+	$switch = "true";
+	$regex = shift @ARGV;
+}
+
+foreach (@ARGV) {
+	if (-f && -T) {
+		$filename = $_;
+		open(FILE,"$_");
+		@file = <FILE>;
+		@lines = grep(/$regex/, @file);
+		if ($switch eq "false") {
+			push @grepd, grep(s/^/$filename: /g, @lines);
+		}
+		elsif (@lines > 0) {
+			push @grepd, "$filename\n";
+		}
+		close(FILE);
+	}
+	elsif (-f) {
+		$filename = $_;
+		open(FILE,"$_");
+		@file = <FILE>;
+		@file = `strings @file`;
+		@lines = grep(/$regex/, @file);
+		if ($switch eq "false") {
+			push @grepd, grep(s/^/$filename: /g, @lines);
+		}
+		elsif (@lines > 0) {
+			push @grepd, "$filename\n";
+		}
+		close(FILE);
+	}
+	else {
+		$dir = $_;
+		@files = `find $dir`;
+		chop @files;
+		foreach (@files) {
+			if (-f && -T) {
+				$filename = $_;
+				open(FILE,"$_");
+				@file = <FILE>;
+				@lines = grep(/$regex/, @file);
+				if ($switch eq "false") {
+					push @grepd, grep(s/^/$filename: /g, @lines);
+				}
+				elsif (@lines > 0) {
+					push @grepd, "$filename\n";
+				}
+				close(FILE);
+			}
+			elsif (-f) {
+				$filename = $_;
+				open(FILE,"$_");
+				@file = <FILE>;
+				@file = `strings @file`;
+				@lines = grep(/$regex/, @file);
+				if ($switch eq "false") {
+					push @grepd, grep(s/^/$filename: /g, @lines);
+				}
+				elsif (@lines > 0) {
+					push @grepd, "$filename\n";
+				}
+				close(FILE);
+			}
+			else {
+				next;
+			}
+		}
+	}
+}
+
+print @grepd;

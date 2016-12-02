@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+
+@list = ("a", "b", "c", "d", "e", "f", "g");
+print $#list,"\n";
+
+for ($i = 0; $i < ($#list/3); $i++) {
+	print "1$list[$i]\n";
+}
+
+for ($i = ($#list/3)+1; $i < (2*$#list/3)+1; $i++) {
+	print "2$list[$i]\n";
+}
+
+for ($i = (2*$#list/3)+1; $i < ($#list)+1; $i++) {
+	print "3$list[$i]\n";
+}

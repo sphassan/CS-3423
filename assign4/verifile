@@ -1,0 +1,42 @@
+#!/usr/bin/perl -w
+if (@ARGV != 2) {
+	die "Improper arguments, invocation is of the form: verifile rootfile sha256file"
+}
+
+open(ROOTFILE,"$ARGV[0]");
+open(SHAFILE,"$ARGV[1]");
+@dirs = <ROOTFILE> or die "Cannot open rootfile\n";
+@oldsha = <SHAFILE> or die "Cannot open sha256file\n";
+close(ROOTFILE);
+close(SHAFILE);
+
+foreach (@dirs) {
+	@files = `find $_`;
+	chop @files;
+	foreach (@files) {
+		if (-f) {
+			$_ = `sha256sum $_`;
+			@out = split(/\s+/, $_);
+			push(@newsha,"$out[1]\t$out[0]");
+			if (grep(/$newsha[$#newsha]/,@oldsha) && grep(/$out[0]/,@oldsha)) {
+				next;
+			}
+			elsif (@match = grep(/$out[0]/,@oldsha)) {
+				print "<old> $match[0]\n";
+				print "<new> $newsha[$#newsha]\n";
+			}
+			else {
+				print "<old>\n";
+				print "<new> $newsha[$#newsha]\n";
+			}
+		}
+	}
+}
+
+foreach (@oldsha) {
+	@old = split(/\s+/,$_);
+	if (!(grep(/$old[1]/,@newsha)) && !(grep(/$old[0]/,@newsha))) {
+		print "<old> $_\n";
+		print "<new>\n";
+	}
+}

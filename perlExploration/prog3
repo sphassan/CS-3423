@@ -1,0 +1,7 @@
+#!/usr/bin/perl -w
+
+while ( <> ) {
+	@fields = split(':',$_);
+	
+	print "$fields[0]\t\t$fields[4]\n";
+}

@@ -1,0 +1,30 @@
+1c1
+< Name: Hugh B. Maynard
+---
+> Name: Sean Hassan
+3c3
+< UTSA ID:  @01234567
+---
+> UTSA ID:  @01348219
+7,15c7,17
+<       CS 1063             T. Bylander        UTSA
+<       CS 1713             K. Robbins         UTSA
+<       CS 1711             K. Robbins         UTSA
+<       CS 2123             H. Maynard         UTSA
+<       CS 2121             H. Maynard         UTSA
+<       CS 2233             T. Bylander        UTSA
+<       CS 2231             T. Bylander        UTSA
+<       CS 3333             Bopanna            UTSA
+<       CS 3331             Bopanna            UTSA
+---
+>       CS 2121             B. Munsinger       UTSA
+>       CS 2123             A. Tosun           UTSA
+>       CS 2233             Q. Tian            UTSA
+>       CS 3333             D. Gokhman         UTSA
+>       CS 3341             J. Sherette        UTSA
+>       CS 3343             J. Sherette        UTSA
+>       CS 3423             H. Maynard         UTSA
+>       CS 3421             H. Maynard         UTSA
+>       CS 3443             W. Zhang           UTSA
+>       CS 3843             Q. Tian            UTSA
+>       CS 3841             Q. Tian            UTSA

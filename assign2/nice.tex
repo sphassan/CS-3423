@@ -1,0 +1,34 @@
+\documentstyle[11pt]{article}
+\begin{document}
+\begin{center} {\bf
+NICE(1L)
+} \end{center}
+\begin{description}
+
+
+\item[NAME] \hfill \\
+       nice - run a program with modified scheduling priority
+
+\item[SYNOPSIS] \hfill \\
+       nice     [-n    adjustment]    [-adjustment]    [-\hspace{.01cm}-adjustment=adjustment] [command [arg...]]
+
+\item[DESCRIPTION] \hfill \\
+       This manual page documents the GNU version of nice.  If no
+       arguments  are  given,  nice  prints the current sheduling
+       priority, which it inherited.  Otherwise,  nice  runs  the
+       given  command  with its scheduling priority adjusted.  If
+       no adjustment is given, the priority  of  the  command  is
+       incremented  by  10.  The superuser can specify a negative
+       adjustment.  The priority can be adjusted by nice over the
+       range of -20 (the highest priority) to 19 (the lowest).
+
+\item[OPTIONS] \hfill \\
+       -n adjustment, -adjustment, -\hspace{.01cm}-adjustment=adjustment \\
+              Add  adjustment instead of 10 to the command's priority.
+
+       The long-named options can be introduced with `+' as  well
+       as  `-\hspace{.01cm}-', for compatibility with previous releases.  Eventually 
+       support for `+' will  be  removed,  because  it  is
+       incompatible with the POSIX.2 standard.
+\end{description}
+\end{document}

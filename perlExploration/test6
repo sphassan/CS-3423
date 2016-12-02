@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+
+@line = <>;
+$i = 1;
+foreach $line (@line) {
+	if ($line =~ /^\s+$/) {
+		next;
+	}
+	$line =~ s/\s+/ /g;
+	if ($line =~ /^\/\*.*\*\//) {
+		$line =~ s/perl/PERL/g;
+	}
+	
+	print $i++, "$line\n";
+}
